@@ -53,6 +53,7 @@ void LinkedList::addItem(Stock item){
     //if LinkedList is empty: set head to the nexNode
     if(head == nullptr){
         head = newNode;
+        count++;
         return;
     }
 
@@ -68,6 +69,7 @@ void LinkedList::addItem(Stock item){
 
     // Make the last node point to the new node
     currentNode->next = newNode;
+    count++;
 }
 
 
