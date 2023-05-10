@@ -4,9 +4,12 @@
 #include "LinkedList.h"
 #include "Coin.h"
 #include "ReadData.h"
+#include "SaveData.h"
 
-std::map<int, int> emptyMap;
+std::map<int, int> coinMap;
 ReadData read;
+SaveData save;
+std::string stockfile, coinfile;
 
 using std::string;
 
@@ -22,9 +25,9 @@ void programAllocator(int choice);
 
 void parseData(const char* stockfile, const char* coinfile)
 {
-    emptyMap = read.fillCoinMap(coinfile);
+    coinMap = read.fillCoinMap(coinfile);
 
-    for(const auto& pair : emptyMap)
+    for(const auto& pair : coinMap)
     {
         std::cout << "D: " << pair.first << ", Q: " << pair.second << std::endl;
     }
@@ -38,7 +41,8 @@ int main(int argc, char **argv)
         " ./ppd <stockfile> <coinsfile>\nEG: ./ppd stock.dat coins.dat" << std::endl;
         exit(0);
     }
-
+    stockfile = argv[1];
+    coinfile = argv[2];
     parseData(argv[1], argv[2]);
     mainMenu();
     int choice = readAndValidate();
@@ -94,8 +98,10 @@ void programAllocator(int choice){
    else if(choice == 2){
         list.purchaseItems();
    }
-
+    //save data
    else if(choice == 3){
+
+        save.saveCoinMap(coinfile, coinMap);
         exit(0);
    }
 }

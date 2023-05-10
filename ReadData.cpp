@@ -42,6 +42,9 @@ std::map<int, int> ReadData::fillCoinMap(const std::string& coinfile)
                 std::cout << "Error: Invalid formatting on line -> " << line << std::endl;
             }  
         }
+
+    // Close the input file
+    inputFile.close();
     //Return map
     return coins;
 }
