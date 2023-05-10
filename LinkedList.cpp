@@ -7,6 +7,9 @@
 
 using std::string;
 
+const std::string FILENAME = "stock.dat";
+const std::string TEMP_FILENAME = "temp.dat";
+
 LinkedList::LinkedList() {
     
     head = nullptr;
@@ -143,5 +146,73 @@ void LinkedList::readStock(){
     }
 
     inputFile.close();
+    return;
+}
+
+
+
+void LinkedList::remove_file(const std::string& segmentToRemove) {
+
+
+    std::cout << "Hello pussio" << std::endl;
+
+    std::ifstream inputFile(FILENAME);
+    std::ofstream tempFile(TEMP_FILENAME);
+
+    if (!inputFile || !tempFile) {
+        std::cerr << "Failed to open files." << std::endl;
+        return;
+    }
+
+    std::string line;
+    while (std::getline(inputFile, line)) {
+        std::string segment = line.substr(0, line.find('|'));
+
+        if (segment != segmentToRemove) {
+            tempFile << line << '\n';
+        }
+    }
+
+    inputFile.close();
+    tempFile.close();
+
+    if (std::remove(FILENAME.c_str()) != 0) {
+        std::cerr << "Failed to delete original file." << std::endl;
+        return;
+    }
+
+    if (std::rename(TEMP_FILENAME.c_str(), FILENAME.c_str()) != 0) {
+        std::cerr << "Failed to rename temporary file." << std::endl;
+        return;
+    }
+
+    std::cout << "Line removed successfully." << std::endl;
+
+}
+
+void LinkedList::remove_list(string itemID) {
+    Node* current = head;
+    Node* previous = nullptr;
+
+    while (current != nullptr) {
+        if (current->data->id == itemID) {
+            if (previous == nullptr) {
+                // Case 1: Item to remove is in the head node
+                head = current->next;
+
+            } else {
+
+                // Case 2: Item to remove is in a non-head node
+                previous->next = current->next;
+            }
+
+            delete current;
+            return;
+        }
+
+        previous = current;
+        current = current->next;
+    }
+
     return;
 }
