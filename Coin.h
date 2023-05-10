@@ -12,16 +12,21 @@ enum Denomination
 };
 
 
+
 // represents a coin type stored in the cash register perhaps. Each demonination
 // will have exactly one of these in the cash register.
 class Coin
 {
 public:
+
     // the denomination type
     enum Denomination denom;
     
     // the count of how many of these are in the cash register
     unsigned count;
+
+    // display value based on denomination
+    int displayValue(Denomination denom);
 };
 
 #endif // COIN_H

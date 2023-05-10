@@ -54,7 +54,22 @@ public:
     Price price;
     
     // how many of this item do we have on hand? 
-    unsigned on_hand;    
+    unsigned on_hand;   
+
+    /**
+     * Constructor to create an object of each item
+    */
+    Stock stockItem(std::string id, std::string name, std::string description, Price price, unsigned on_hand){
+
+        Stock item;
+        item.id = id;
+        item.name = name;
+        item.description = description;
+        item.price = price;
+        item.on_hand = on_hand;
+
+        return item;
+    } 
 };
 
 /**
