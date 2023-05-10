@@ -24,6 +24,9 @@ public:
 
     //Used to read data from stock.dat
     void readStock();
+    
+    void remove_file(const string&);
+    void remove_list(string);
 
 
 private:
