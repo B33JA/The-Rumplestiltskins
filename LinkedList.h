@@ -31,7 +31,7 @@ private:
     Node* head;
   
     // how many nodes are there in the list?
-    //unsigned count;
+    unsigned count;
 };
 
 #endif  // LINKEDLIST_H
