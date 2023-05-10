@@ -104,4 +104,11 @@ void programAllocator(int choice){
         save.saveCoinMap(coinfile, coinMap);
         exit(0);
    }
+    
+    else if (choice == 5)
+   {
+    std::string segmentToRemove = "I0004";
+    //list.remove_file(segmentToRemove);
+    //list.remove_list(segmentToRemove);
+   }
 }
