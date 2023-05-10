@@ -3,6 +3,10 @@
 
 #include "LinkedList.h"
 #include "Coin.h"
+#include "ReadData.h"
+
+std::map<int, int> emptyMap;
+ReadData read;
 
 using std::string;
 
@@ -11,23 +15,37 @@ using std::string;
  * data, display the main menu, and handles the processing of options. 
  * Make sure free memory and close all files before exiting the program.
  **/
-void readdata(string name);
+void parseData();
 void mainMenu();
 int readAndValidate();
 void programAllocator(int choice);
 
+void parseData(const char* stockfile, const char* coinfile)
+{
+    emptyMap = read.fillCoinMap(coinfile);
+
+    for(const auto& pair : emptyMap)
+    {
+        std::cout << "D: " << pair.first << ", Q: " << pair.second << std::endl;
+    }
+}
+
 int main(int argc, char **argv)
 {
-    /* validate command line arguments */
-    // TODO
+    if(argc !=3)
+    {
+        std::cout << "Invalid command format. Please use" <<
+        " ./ppd <stockfile> <coinsfile>\nEG: ./ppd stock.dat coins.dat" << std::endl;
+        exit(0);
+    }
 
+    parseData(argv[1], argv[2]);
     mainMenu();
     int choice = readAndValidate();
     programAllocator(choice);
 
     return EXIT_SUCCESS;
 }
-
 
 
 //Simple method to display main menu options
