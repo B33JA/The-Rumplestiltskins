@@ -33,6 +33,8 @@ class Price
 public:
     // The dollar value, and the cents value for some price
     unsigned dollars, cents;
+
+
 };
 
 /**
@@ -78,12 +80,14 @@ public:
 class Node
 {
 public:
-    Node();
+    Node(Stock item);
     ~Node();
     // pointer to the data held for the node 
     Stock* data;
     // pointer to the next node in the list 
     Node* next;
+
+
 };
 
 #endif // NODE_H
