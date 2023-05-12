@@ -13,6 +13,7 @@ const std::string TEMP_FILENAME = "temp.dat";
 LinkedList::LinkedList() {
     
     head = nullptr;
+    readStock();
 
 }
 
@@ -20,6 +21,9 @@ LinkedList::~LinkedList() {
     // TODO
 }
 
+Node* LinkedList::getHead() const {
+    return head;
+}
 
 void LinkedList::displayItems(){
     readStock();
@@ -86,7 +90,8 @@ void LinkedList::readStock(){
 
     //Check if file found
     if(!inputFile){
-        std::cout << "Error opening file" << std::endl;
+        std::cout << "WARNING: STOCK.DAT NOT FOUND" << std::endl;
+        exit(0);
     }
 
     //Reading each line
@@ -136,7 +141,7 @@ void LinkedList::readStock(){
 
         //Read number on hand
         if(!getline(ss, token, '|')){
-            std::cerr << "Error: Missing NUmber On Hand for ItemID " << item.id << std::endl;   
+            std::cerr << "Error: Missing Number On Hand for ItemID " << item.id << std::endl;   
         }
 
         //Change token to type unsigned int

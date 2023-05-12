@@ -24,6 +24,8 @@ public:
 
     //Used to read data from stock.dat
     void readStock();
+
+    Node* getHead() const; // Accessor for head
     
     void remove_file(const string&);
     void remove_list(string);
