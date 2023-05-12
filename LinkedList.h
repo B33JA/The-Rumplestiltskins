@@ -14,7 +14,6 @@ LinkedList::LinkedList() {
     
     head = nullptr;
     readStock();
-    remove_list();
 
 }
 
