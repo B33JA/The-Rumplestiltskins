@@ -26,7 +26,6 @@ Node* LinkedList::getHead() const {
 }
 
 void LinkedList::displayItems(){
-    readStock();
     std::cout << "Items Menu\n----------" << std::endl;
     std::cout << "ID   |Name                                    | Available | Price" << std::endl;
     std::cout << "-------------------------------------------------------------------" <<std::endl;
@@ -131,7 +130,7 @@ void LinkedList::readStock(){
         }
 
         /**
-         * Need to convert token of type string to the unsigned int
+         * Need to convert token of type string to unsigned int
         */
         
         //Stores the dollar from token into price.dollars
@@ -156,52 +155,21 @@ void LinkedList::readStock(){
 
 
 
-void LinkedList::remove_file(const std::string& segmentToRemove) {
+void LinkedList::remove_list() {
 
+    std::cout << "Enter the item id of the item to remove from the menu: ";
 
-    std::cout << "Hello pussio" << std::endl;
+    string itemID;
+    std::cin >> itemID;
+    std::cout << itemID << std::endl;
 
-    std::ifstream inputFile(FILENAME);
-    std::ofstream tempFile(TEMP_FILENAME);
-
-    if (!inputFile || !tempFile) {
-        std::cerr << "Failed to open files." << std::endl;
-        return;
-    }
-
-    std::string line;
-    while (std::getline(inputFile, line)) {
-        std::string segment = line.substr(0, line.find('|'));
-
-        if (segment != segmentToRemove) {
-            tempFile << line << '\n';
-        }
-    }
-
-    inputFile.close();
-    tempFile.close();
-
-    if (std::remove(FILENAME.c_str()) != 0) {
-        std::cerr << "Failed to delete original file." << std::endl;
-        return;
-    }
-
-    if (std::rename(TEMP_FILENAME.c_str(), FILENAME.c_str()) != 0) {
-        std::cerr << "Failed to rename temporary file." << std::endl;
-        return;
-    }
-
-    std::cout << "Line removed successfully." << std::endl;
-
-}
-
-void LinkedList::remove_list(string itemID) {
     Node* current = head;
     Node* previous = nullptr;
 
     while (current != nullptr) {
         if (current->data->id == itemID) {
             if (previous == nullptr) {
+
                 // Case 1: Item to remove is in the head node
                 head = current->next;
 
@@ -211,13 +179,95 @@ void LinkedList::remove_list(string itemID) {
                 previous->next = current->next;
             }
 
+            std::cout << current->data->id << " - " << current->data->name << " - " << current->data->description << " has been removed from the system" << std::endl;
             delete current;
             return;
         }
 
+        
         previous = current;
         current = current->next;
     }
 
+    if(current == nullptr){
+        std::cout << "Item ID: " << itemID << " not found" << std::endl;
+        return;
+    }
+
     return;
 }
+
+
+
+
+void LinkedList::reset_Stock(){
+    std::ifstream inputFile("stock.dat");
+
+    string line;
+    string itemID;
+    unsigned int on_hand;
+    Node* currentNode = head;
+
+    while(getline(inputFile, line)){
+        std::istringstream ss(line);
+
+        //token for data
+        string token;
+
+        //Read itemID
+        if(!getline(ss, token, '|')){
+            
+            //Output unbuffered error message
+            std::cerr << "Error: Missing ItemID" << std::endl;
+        }
+        
+
+        //Storing the itemID in a variable;
+        itemID = token;
+
+        //Read ItemName
+        if(!getline(ss, token, '|')){
+            std::cerr << "Error: Missing ItemName for ItemID " << item.id << std::endl;       
+        }
+
+        //Read Item Description
+        if(!getline(ss, token, '|')){
+            std::cerr << "Error: Missing Description for ItemID " << item.id << std::endl;       
+        }
+        
+        //Read price
+        if(!getline(ss, token, '|')){
+            std::cerr << "Error: Missing Price for ItemID " << item.id << std::endl;      
+        }
+
+        /**
+         * Need to convert token of type string to unsigned int
+        */
+        
+        //Stores the dollar from token into price.dollars
+        item.price.dollars = std::stoi(token.substr(0, token.find('.')));
+        item.price.cents = std::stoi(token.substr(token.find('.') + 1));
+    
+
+        //Read number on hand
+        if(!getline(ss, token, '|')){
+            std::cerr << "Error: Missing Number On Hand for ItemID " << itemID << std::endl;   
+        }
+
+        //Storing the no. on hand in a variable
+        on_hand = std::stoul(token);
+
+
+        //Set the current item stock = on_hand
+        currentNode->data->on_hand = on_hand;
+        currentNode = currentNode->next;
+    }
+
+
+    inputFile.close();
+    std::cout << "All stock has been reset to the default level of X" << std::endl;
+    return;
+
+}
+
+
