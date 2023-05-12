@@ -7,9 +7,12 @@
 #include "SaveData.h"
 
 std::map<int, int> coinMap;
+LinkedList list;
 ReadData read;
 SaveData save;
+bool quit = true;
 std::string stockfile, coinfile;
+
 
 using std::string;
 
@@ -44,9 +47,12 @@ int main(int argc, char **argv)
     stockfile = argv[1];
     coinfile = argv[2];
     parseData(argv[1], argv[2]);
-    mainMenu();
-    int choice = readAndValidate();
-    programAllocator(choice);
+    while (quit) 
+    {
+        int choice = readAndValidate();
+        programAllocator(choice);
+    }
+    
 
     return EXIT_SUCCESS;
 }
@@ -56,13 +62,13 @@ int main(int argc, char **argv)
 void mainMenu(){
     
     std::cout << "\nMain Menu:\n  1.Display Items\n  2.Purchase Items\n  3.Save and Exit" << std::endl;
-    std::cout << "Administrator-Only Menu:\n  4.Add Item\n  5.Remove Item\n  6.Display Coins\n  7.Reset Clock\n  8.Reset Coins\n  9.Abort Program" << std::endl;
-    std::cout << "Select your option (1-9)" << std::endl;
+    std::cout << "Administrator-Only Menu:\n  4.Add Item\n  5.Remove Item\n  6.Display Coins\n  7.Reset Stock\n  8.Reset Coins\n  9.Abort Program" << std::endl;
+    std::cout << "Select your option (1-9): ";
 }
 
 //Method will read user input and validate it
 int readAndValidate(){
-
+    mainMenu();
     try {
 
     // Will take user input as a string (ignores white spaces)
@@ -83,6 +89,15 @@ int readAndValidate(){
     
     //Catches an incorrect type error (user enters something that isnt an integer)
     catch (std::exception const& e) {
+    //prevent output if CTRL+D is pressed:
+    
+    if(std::cin.eof())
+    {
+        save.saveCoinMap(coinfile, coinMap);
+        save.saveLinkedList(stockfile, list);
+        exit(0);
+    }
+        
     std::cout << "This is not a valid input." << std::endl;
   }
     return 0;
@@ -90,25 +105,28 @@ int readAndValidate(){
 
 //Determines where to go depending on the users choice
 void programAllocator(int choice){
-    LinkedList list;
+    
     if(choice == 1){
 
     }
 
    else if(choice == 2){
-        list.purchaseItems();
+        list.purchaseItems(coinMap);
    }
     //save data
    else if(choice == 3){
 
         save.saveCoinMap(coinfile, coinMap);
+        save.saveLinkedList(stockfile, list);
         exit(0);
    }
     
     else if (choice == 5)
    {
-    std::string segmentToRemove = "I0004";
-    //list.remove_file(segmentToRemove);
-    //list.remove_list(segmentToRemove);
+    list.remove_list();
+   }
+   else if (choice == 7)
+   {
+    list.reset_Stock();
    }
 }
