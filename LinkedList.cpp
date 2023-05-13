@@ -75,11 +75,6 @@ std::string LinkedList::convertToDollarsAndCents(int price)
     return dollarString + centString;
 }
 
-bool checkCoinQty()
-{
-
-}
-
 //print formatted price
 void LinkedList::formatPrice(int price, std::map<int,int>& coinMap) 
 {   //remove coin from coinMap
@@ -457,8 +452,6 @@ void LinkedList::remove_list() {
 }
 
 void LinkedList::retrieveItem() {
-
-    std::cout << "Enter the item id of the item you wish to purchase: ";
 
     string itemID;
     std::cin >> itemID;

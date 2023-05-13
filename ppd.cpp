@@ -29,11 +29,6 @@ void programAllocator(int choice);
 void parseData(const char* stockfile, const char* coinfile)
 {
     coinMap = read.fillCoinMap(coinfile);
-
-    for(const auto& pair : coinMap)
-    {
-        std::cout << "D: " << pair.first << ", Q: " << pair.second << std::endl;
-    }
 }
 
 int main(int argc, char **argv)

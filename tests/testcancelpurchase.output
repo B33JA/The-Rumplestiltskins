@@ -1,0 +1,47 @@
+
+Main Menu:
+  1.Display Items
+  2.Purchase Items
+  3.Save and Exit
+Administrator-Only Menu:
+  4.Add Item
+  5.Remove Item
+  6.Display Coins
+  7.Reset Stock
+  8.Reset Coins
+  9.Abort Program
+Select your option (1-9): 2
+Purchase Item
+-------------
+Please enter the id of the item you wish to purchase: I0005
+You have selected "Lemon Tart - A delicious lemon ... pastry base". This will cost you $3.75.
+Please hand over the money - type in the value of each note/coin in cents.
+Press enter or ctrl-d on a new line to cancel this purchase:
+You still need to give us $3.75: 5
+You still need to give us $3.70: 5
+You still need to give us $3.65: 5
+You still need to give us $3.60: 5
+You still need to give us $3.55: 5
+You still need to give us $3.50: 5
+You still need to give us $3.45: 5
+You still need to give us $3.40: 5
+You still need to give us $3.35: 5
+You still need to give us $3.30: 5
+You still need to give us $3.25: 
+
+Returning change: 5c 5c 5c 5c 5c 5c 5c 5c 5c 5c 
+
+Main Menu:
+  1.Display Items
+  2.Purchase Items
+  3.Save and Exit
+Administrator-Only Menu:
+  4.Add Item
+  5.Remove Item
+  6.Display Coins
+  7.Reset Stock
+  8.Reset Coins
+  9.Abort Program
+Select your option (1-9): 3
+Successfully saved coins.dat
+Successfully saved stock.dat

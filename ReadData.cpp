@@ -37,7 +37,7 @@ std::map<int, int> ReadData::fillCoinMap(const std::string& coinfile)
                     std::cout << "Error: No Data Present!" << std::endl;
             }
 
-            } catch (const std::invalid_argument) {
+            } catch (std::invalid_argument const&) {
                 // Empty value for values or values not integers (failed conversion) 
                 std::cout << "Error: Invalid formatting on line -> " << line << std::endl;
             }  
@@ -48,3 +48,4 @@ std::map<int, int> ReadData::fillCoinMap(const std::string& coinfile)
     //Return map
     return coins;
 }
+
