@@ -74,7 +74,7 @@ int readAndValidate(){
     int number = std::stoi(choice);
 
          //Ensures that the number entered is a valid choice
-        if(number < 0 || number > 9){
+        if(number < 1 || number > 9){
             std::cout << "This is not a valid input." <<  std::endl;
         }
 

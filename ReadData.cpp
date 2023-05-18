@@ -11,6 +11,9 @@ std::map<int, int> ReadData::fillCoinMap(const std::string& coinfile)
     std::string line;
     std::map<int, int> coins;
 
+    //Storing the denomination values within an array
+    int denomValue[] = {5, 10, 20, 50, 100, 200, 500, 1000};
+
     //Check if file not found
     if (!inputFile) {
         std::cout << "WARNING: COINS.DAT NOT FOUND" << std::endl;
@@ -31,7 +34,11 @@ std::map<int, int> ReadData::fillCoinMap(const std::string& coinfile)
                     int denomination = std::stoi(denomination_str);
                     int quantity = std::stoi(quantity_str);
                     //initiate a new map element with key denominatiom, initialise value to quantity
-                    coins[denomination] = quantity;
+                    if(quantity >= 0 && denomination > 0)
+                        coins[denomination] = quantity;
+                    else
+                        std::cout <<"Error: Invalid formatting on line -> " << line << std::endl;                   
+                    
                 } else {
                     // Empty Line, or only one value present
                     std::cout << "Error: No Data Present!" << std::endl;
@@ -42,6 +49,12 @@ std::map<int, int> ReadData::fillCoinMap(const std::string& coinfile)
                 std::cout << "Error: Invalid formatting on line -> " << line << std::endl;
             }  
         }
+
+    //correct amount of denominations?
+    if (coins.size() != 8) {
+        std::cout << "WARNING: IMPROPER DATA DETECTED" << std::endl;
+        exit(0);
+    }
 
     // Close the input file
     inputFile.close();
