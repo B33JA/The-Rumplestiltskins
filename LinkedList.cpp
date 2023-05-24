@@ -47,9 +47,9 @@ void LinkedList::displayItems(){
 
         
         std::cout << currentNode->data->id << "|";
-        std::cout << std::left << std::setw(42) << currentNode->data->name;
-        std::cout << std::setw(13) << currentNode->data->on_hand;
-        std::cout << currentNode->data->price.dollars << ".";
+        std::cout << std::left << std::setw(40) << currentNode->data->name;
+        std::cout << "|" << std::setw(11) << currentNode->data->on_hand;
+        std::cout << "|" << "$ " << currentNode->data->price.dollars << ".";
         std::cout << currentNode->data->price.cents;
 
         //Will print "3.00" instead of "3.0"
