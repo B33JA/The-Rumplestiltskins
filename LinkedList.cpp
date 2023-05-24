@@ -37,23 +37,31 @@ Node* LinkedList::getHead() const {
 }
 
 void LinkedList::displayItems(){
-    readStock();
     std::cout << "Items Menu\n----------" << std::endl;
     std::cout << "ID   |Name                                    | Available | Price" << std::endl;
     std::cout << "-------------------------------------------------------------------" <<std::endl;
 
 
     Node* currentNode = head;
-    std::string spaces(34, ' ');
-    while(currentNode != nullptr){
-        //std::cout << data->id;
-        std::cout << currentNode->data->id << "|" << currentNode->data->name;
-        std::cout << spaces; 
-        std::cout << currentNode->data->on_hand << std::endl;
+    while (currentNode != nullptr) {
 
-        //Moving to the next node
-        currentNode = currentNode->next;
         
+        std::cout << currentNode->data->id << "|";
+        std::cout << std::left << std::setw(42) << currentNode->data->name;
+        std::cout << std::setw(13) << currentNode->data->on_hand;
+        std::cout << currentNode->data->price.dollars << ".";
+        std::cout << currentNode->data->price.cents;
+
+        //Will print "3.00" instead of "3.0"
+        if(currentNode->data->price.cents == 0){
+            std::cout << 0;
+        }
+
+        std::cout << std::endl;
+
+
+        // Moving to the next node
+        currentNode = currentNode->next;
     }
 
     return;
@@ -169,7 +177,7 @@ void LinkedList::purchaseItems(std::map<int,int>& coinMap){
             //Check whether inputAmount is a valid demonination
             try 
             {
-                int value = coinMap.at(inputAmount);
+
                 //accept input, increment register quantity
                 int tempPrice = price;
                 price = price - inputAmount;
@@ -463,7 +471,6 @@ void LinkedList::retrieveItem() {
     }
 
     Node* current = head;
-    Node* previous = nullptr;
 
     while (current != nullptr) {
         if (current->data->id == itemID) 
@@ -495,7 +502,6 @@ void LinkedList::retrieveItem() {
 void LinkedList::subtractOnHand(string itemID) {
 
     Node* current = head;
-    Node* previous = nullptr;
 
     while (current != nullptr) {
         if (current->data->id == itemID) 
@@ -512,7 +518,6 @@ void LinkedList::subtractOnHand(string itemID) {
 void LinkedList::addOnHand(string itemID) {
 
     Node* current = head;
-    Node* previous = nullptr;
 
     while (current != nullptr) {
         if (current->data->id == itemID) 
@@ -529,7 +534,6 @@ void LinkedList::addOnHand(string itemID) {
 bool LinkedList::hasOnHand(string itemID) {
 
     Node* current = head;
-    Node* previous = nullptr;
 
     while (current != nullptr) {
         if (current->data->id == itemID) 
