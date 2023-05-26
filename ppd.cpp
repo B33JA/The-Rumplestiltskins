@@ -4,7 +4,7 @@
 #include "LinkedList.h"
 #include "Coin.h"
 #include "ReadData.h"
-#include "SaveData.h"
+#include "SaveData.H"
 
 std::map<int, int> coinMap;
 LinkedList list;
@@ -21,7 +21,6 @@ using std::string;
  * data, display the main menu, and handles the processing of options. 
  * Make sure free memory and close all files before exiting the program.
  **/
-void parseData();
 void mainMenu();
 int readAndValidate();
 void programAllocator(int choice);
@@ -102,7 +101,7 @@ int readAndValidate(){
 void programAllocator(int choice){
     
     if(choice == 1){
-
+        list.displayItems();
     }
 
    else if(choice == 2){
@@ -115,7 +114,11 @@ void programAllocator(int choice){
         save.saveLinkedList(stockfile, list);
         exit(0);
    }
-    
+
+    else if(choice == 4){
+        list.createItem();
+    }
+
     else if (choice == 5)
    {
     list.remove_list();
