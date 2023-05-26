@@ -11,6 +11,7 @@ public:
     LinkedList();
     ~LinkedList();
     Stock item;
+    Coin coin; 
 
     // more functions to be added perhaps...
 
@@ -22,6 +23,9 @@ public:
 
     //Used to add items to the linked list
     void addItem(Stock item);
+
+    //Used to create a new item to be added
+    void createItem();
 
     //Used to read data from stock.dat
     void readStock();
