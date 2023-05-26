@@ -180,6 +180,7 @@ void LinkedList::purchaseItems(std::map<int,int>& coinMap){
 
                 //accept input, increment register quantity
                 int tempPrice = price;
+                
                 price = price - inputAmount;
                 coinMap[inputAmount] = coinMap.at(inputAmount) + 1;
                 refundGiven.push_back(inputAmount);
@@ -202,6 +203,7 @@ void LinkedList::purchaseItems(std::map<int,int>& coinMap){
                 //Demonination not found
                 std::cout << "Error: " << convertToDollarsAndCents(inputAmount) << 
                 " is not a valid denomination of money. Please try again." << std::endl;
+                
             }
 
         }
@@ -227,6 +229,63 @@ void LinkedList::purchaseItems(std::map<int,int>& coinMap){
     }
 }
 
+
+void LinkedList::createItem(){
+    Stock item;
+
+    //Pointer to the head of the Linked List
+    Node* current = head;
+    
+    //Go to the last Node
+    while(current->next != nullptr){
+        current = current->next;
+    }
+
+    int currentID = std::stoi(current->data->id.substr(1));
+    currentID++;
+
+    if(currentID >= 10){
+        item.id = "I00";
+    }
+
+    else if(currentID >= 100){
+        item.id = "I0";
+    }
+
+    else if(currentID >= 1000){
+        item.id = "I";
+    }
+
+    else{
+        item.id = "I000";
+    }
+
+    item.id += std::to_string(currentID);
+    std::cout << "The id of the new stock will be: " << item.id << std::endl;
+
+    std::cout << "Enter the item name: " << std::endl;
+
+    // Will take user input as a string (ignores white spaces)
+    string itemName;
+    std::getline(std::cin >> std::ws, itemName);
+    item.name = itemName;
+
+    std::cout << "Enter the item description: " << std::endl;
+    string itemDesc;
+    std::getline(std::cin >> std::ws, itemDesc);
+    item.description = itemDesc;
+
+    std::cout << "Enter the price for the item: " << std::endl;
+    string price;
+    std::getline(std::cin >> std::ws, price);
+
+    item.price.dollars = std::stoi(price.substr(0, price.find('.')));
+    item.price.cents = std::stoi(price.substr(price.find('.') + 1));
+
+    std::cout << "This item - " << item.name << " " << item.description << " Has now been addded to the menu";
+
+    addItem(item);
+}
 
 void LinkedList::addItem(Stock item){
     Node* newNode = new Node(item);
@@ -329,7 +388,7 @@ void LinkedList::readStock(){
 }
 
 void LinkedList::reset_Stock(){
-    std::ifstream inputFile("stock.dat");
+    std::ifstream inputFile("clean_files/stock.dat");
 
     string line;
     string itemID;
