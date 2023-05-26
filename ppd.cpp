@@ -1,10 +1,11 @@
 #include <iostream>
 #include <fstream>
-
+#include <iomanip>
+#include <ostream>
 #include "LinkedList.h"
 #include "Coin.h"
 #include "ReadData.h"
-#include "SaveData.H"
+#include "SaveData.h"
 
 std::map<int, int> coinMap;
 LinkedList list;
@@ -97,6 +98,26 @@ int readAndValidate(){
     return 0;
 }
 
+std::string returnDenomType(int denom){
+    if(denom>=100)
+        return std::to_string(denom/100) + " Dollar";
+    else
+        return std::to_string(denom) + " Cents";
+}
+
+//display coins for menu
+void displayCoins(){
+    std::cout << "Coins Summary\n-------------" << std::endl;
+    std::cout << "Denomination    |    Count" << std::endl;
+    std::cout << "---------------------------" <<std::endl;
+    for(const auto& val : coinMap)
+    {
+        std::cout << std::left << std::setw(16) << returnDenomType(val.first);
+        std::cout << "|" << std::setw(11) << std::right << std::setw(10) << val.second << std::endl;
+    }
+
+}
+
 //Determines where to go depending on the users choice
 void programAllocator(int choice){
     
@@ -123,8 +144,22 @@ void programAllocator(int choice){
    {
     list.remove_list();
    }
+   else if (choice == 6)
+   {
+    displayCoins();
+   }
    else if (choice == 7)
    {
     list.reset_Stock();
+   }
+   else if (choice == 8)
+   {
+    coinMap = read.fillCoinMap(coinfile); //re-read coinfile, replacing current coinMap
+    std::cout << "All coins have been reset to the default level of X." << std::endl;
+   }
+   else if (choice == 9)
+   {
+    std::cout << "Aborting." << std::endl;
+    exit(0);
    }
 }
